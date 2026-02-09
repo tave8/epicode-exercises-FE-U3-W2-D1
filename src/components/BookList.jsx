@@ -19,7 +19,7 @@ class BookList extends Component {
     return filteredBooks.map((book) => {
       return (
         <Col key={book.asin} className="d-flex justify-content-center">
-          <SingleBook book={book} />
+          <SingleBook book={book} updateSelectedBook={this.props.updateSelectedBook} />
         </Col>
       )
     })

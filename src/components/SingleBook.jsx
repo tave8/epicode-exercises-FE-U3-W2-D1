@@ -1,7 +1,6 @@
 import { Component } from "react"
 import { Card } from "react-bootstrap"
-import CommentArea from "./CommentArea"
-import AIBookSummary from "./AIBookSummary"
+
 
 
 class SingleBook extends Component {
@@ -21,14 +20,10 @@ class SingleBook extends Component {
   render() {
     const { book } = this.props
     return (
-      <Card style={{ width: "18rem", height: this.state.selected ? "1200px" : "500px" }} className={this.state.selected ? "selected-card" : ""} key={book.asin}>
-        <Card.Img variant="top" src={book.img} onClick={this.toggleSelected} />
+      <Card style={{ width: "18rem", height: "500px" }} className={this.state.selected ? "selected-card" : ""} key={book.asin}>
+        <Card.Img variant="top" src={book.img} onClick={() => {this.props.updateSelectedBook(book)}} />
         <Card.Body>
           <Card.Title>{book.title}</Card.Title>
-          {/* AI summary */}
-          {this.state.selected && <AIBookSummary book={book} />}
-          {/* comment area: rate, review, reviews list etc. */}
-          <CommentArea bookIsSelected={this.state.selected} book={book} />
         </Card.Body>
       </Card>
     )
