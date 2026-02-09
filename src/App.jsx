@@ -58,7 +58,7 @@ class App extends Component {
             <Row>
               {/* books list */}
               <Col xs={6}>
-                <BookList books={booksList} marginTop="20px" selectedBook={this.state.selectedBook} updateSelectedBook={this.updateSelectedBook} />
+                <BookList books={booksList} marginTop="20px" selectedBook={this.state.selectedBook} updateSelectedBook={this.updateSelectedBook} bookIsSelected={this.state.bookIsSelected} />
               </Col>
               {/* comment area */}
               <Col xs={6}>

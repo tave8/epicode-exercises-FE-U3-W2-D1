@@ -4,26 +4,14 @@ import { Card } from "react-bootstrap"
 
 
 class SingleBook extends Component {
-  state = {
-    selected: false,
-  }
-
-  // funzione freccia: eredita il this dell'istanza della classa
-  // funzione normale: ha un proprio this
-  // event handler: meglio usare funzioni freccia per evitare di dover usare il .bind
-  toggleSelected = () => {
-    this.setState({
-      selected: !this.state.selected,
-    })
-  }
-
   render() {
-    const { book } = this.props
+    const selectedBookExists = this.props.selectedBook !== null
+    const isThisBookSelected = (selectedBookExists) && (this.props.book.asin === this.props.selectedBook.asin)
     return (
-      <Card style={{ width: "18rem", height: "500px" }} className={this.state.selected ? "selected-card" : ""} key={book.asin}>
-        <Card.Img variant="top" src={book.img} onClick={() => {this.props.updateSelectedBook(book)}} />
+      <Card style={{ width: "18rem", height: "500px" }} className={isThisBookSelected ? "selected-card" : ""} key={this.props.book.asin}>
+        <Card.Img variant="top" src={this.props.book.img} onClick={() => {this.props.updateSelectedBook(this.props.book)}} />
         <Card.Body>
-          <Card.Title>{book.title}</Card.Title>
+          <Card.Title>{this.props.book.title}</Card.Title>
         </Card.Body>
       </Card>
     )
