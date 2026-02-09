@@ -1,7 +1,7 @@
 import { Component } from "react"
 import { Card } from "react-bootstrap"
 
-
+// bookIsSelected si deriva dall null o meno di selectedBook. semplificare logica
 
 class SingleBook extends Component {
   render() {

@@ -125,7 +125,7 @@ class CommentArea extends Component {
             <AIBookSummary isLoading={this.state.isLoadingSummary} bookSummary={this.state.bookSummary} />
 
             {/* leave your review */}
-            <AddComment book={this.props.selectedBook} />
+            <AddComment book={this.props.selectedBook} getReviews={this.getReviews} />
 
             {/* reviews for this book */}
             <CommentsList book={this.props.selectedBook} reviews={this.state.reviews} isLoading={this.state.isLoading} />

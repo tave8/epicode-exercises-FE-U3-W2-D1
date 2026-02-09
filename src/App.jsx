@@ -25,25 +25,6 @@ class App extends Component {
     })
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const prevSelectedBook = prevState.selectedBook
-    const currSelectedBook = this.state.selectedBook
-    let selectedBookWasChanged = false
-
-    // before null, after book
-    if (prevSelectedBook === null) {
-      selectedBookWasChanged = currSelectedBook !== null
-    }
-    // before book, after another book
-    else {
-      selectedBookWasChanged = prevSelectedBook.asin !== currSelectedBook.asin
-    }
-
-    if (selectedBookWasChanged) {
-      // this.updateSelectedBook()
-      // console.log("selected book was changed")
-    }
-  }
 
   render() {
     return (

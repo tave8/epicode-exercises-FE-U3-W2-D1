@@ -43,6 +43,7 @@ class AddComment extends Component {
           this.setState({
             formValues: initialReview,
           })
+          this.props.getReviews(bookAsin)
         } else {
           throw new Error("Error while adding review")
         }
