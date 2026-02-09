@@ -25,7 +25,7 @@ class AIBookSummary extends Component {
           {/* spinner */}
           {this.props.isLoading && (
             <div className="text-center mt-3">
-              <Spinner variant="success" animation="border" />
+              <Spinner variant="success" animation="grow" />
             </div>
           )}
         </div>

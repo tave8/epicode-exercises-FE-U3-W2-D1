@@ -19,7 +19,7 @@ class CommentsList extends Component {
             {/* title */}
             <Row>
               <Col>
-                <p className="fs-3 text-center">User reviews</p>
+                <h3 className="text-center">Reviews</h3>
               </Col>
             </Row>
 

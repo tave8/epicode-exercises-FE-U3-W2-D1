@@ -16,7 +16,7 @@ class AddComment extends Component {
 
     if (this.state.formValues.comment.trim() == "") {
       alert("Review cannot be empty")
-      return 
+      return
     }
 
     // the asin of the current book
@@ -70,6 +70,12 @@ class AddComment extends Component {
     return (
       <>
         <Container>
+          <Row>
+            <Col>
+              <h3 className="text-center">Write your review</h3>
+            </Col>
+          </Row>
+
           {/* best practice: row -> col */}
           <Form onSubmit={this.onFormSubmit}>
             <Row className="flex-column g-3">

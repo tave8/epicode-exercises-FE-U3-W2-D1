@@ -119,6 +119,8 @@ class CommentArea extends Component {
         {/* book selected */}
         {this.props.bookIsSelected && (
           <>
+            <h2>{this.props.selectedBook.title}</h2>
+
             {/* AI summary */}
             <AIBookSummary isLoading={this.state.isLoadingSummary} bookSummary={this.state.bookSummary} />
 
