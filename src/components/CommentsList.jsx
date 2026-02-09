@@ -3,88 +3,45 @@ import SingleComment from "./SingleComment"
 import { Container, Col, Form, Row, Button, Spinner, Alert } from "react-bootstrap"
 
 class CommentsList extends Component {
-  state = {
-    reviews: [],
-    isLoading: true,
-  }
-
-  componentDidMount() {
-    this.getReviews(this.props.book.asin)
-  }
-
-  getReviews = (bookAsin) => {
-    this.setState({
-      isLoading: true,
-    })
-
-    const url = `https://striveschool-api.herokuapp.com/api/comments/${bookAsin}`
-    const config = {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTg5ZTdlMzI4NzNjYjAwMTUwZjAyODMiLCJpYXQiOjE3NzA2NDU2MTEsImV4cCI6MTc3MTg1NTIxMX0.dxBrJ7LafrnYCgkejqiljle-4vTlI8xnM3Kmxn5z0I8",
-      },
-    }
-
-    fetch(url, config)
-      .then((resp) => {
-        if (resp.ok) {
-          return resp.json()
-        } else {
-          throw Error("error while fetching reviews")
-        }
-      })
-      .then((data) => {
-        const reviews = data
-        this.setState({
-          reviews,
-          isLoading: false,
-        })
-      })
-      .catch((err) => {
-        console.error(err)
-        this.setState({
-          isLoading: false,
-        })
-      })
-  }
-
   render() {
     return (
       <>
         {/* spinner: loading */}
-        {this.state.isLoading && (
+        {this.props.isLoading && (
           <div className="text-center mt-3">
             <Spinner variant="success" animation="border" />
           </div>
         )}
 
-        {/* comments */}
-        <Container style={{}} className="mt-2">
-          {/* title */}
-          <Row>
-            <Col>
-              <p className="fs-3 text-center">User reviews</p>
-            </Col>
-          </Row>
+        {!this.props.isLoading && (
+          // {/* comments */}
+          <Container style={{}} className="mt-2">
+            {/* title */}
+            <Row>
+              <Col>
+                <p className="fs-3 text-center">User reviews</p>
+              </Col>
+            </Row>
 
-          {/* reviews */}
-          <Row className="flex-column flex-nowrap" style={{ height: "200px", overflowY: "auto" }}>
-            {this.state.reviews.map((review) => {
-              return (
-                <Col key={review._id}>
-                  <SingleComment key={review._id} review={review} />
-                </Col>
-              )
-            })}
+            {/* reviews */}
+            <Row className="flex-column flex-nowrap" style={{ height: "200px", overflowY: "auto" }}>
+              {this.props.reviews.map((review) => {
+                return (
+                  <Col key={review._id}>
+                    <SingleComment key={review._id} review={review} />
+                  </Col>
+                )
+              })}
 
-            {/* no reviews */}
-            {this.state.reviews.length == 0 && this.state.isLoading == false && (
-              <Alert variant="info">
-                <p>No reviews found.</p>
-              </Alert>
-            )}
-          </Row>
-        </Container>
+              {/* no reviews */}
+              {this.props.reviews.length == 0 && this.props.isLoading == false && (
+                <Alert variant="info">
+                  <p>No reviews found.</p>
+                </Alert>
+              )}
+            </Row>
+          </Container>
+        )}
       </>
     )
   }
