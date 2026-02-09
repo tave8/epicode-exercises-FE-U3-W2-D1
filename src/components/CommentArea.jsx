@@ -1,13 +1,18 @@
 import { Component } from "react"
 import CommentsList from "./CommentsList"
 import AddComment from "./AddComment"
+import AIBookSummary from "./AIBookSummary"
+
+import OpenAI from "../classes/OpenAI"
 
 import { Container, Row, Col, Form, Alert } from "react-bootstrap"
 
 class CommentArea extends Component {
   state = {
     reviews: [],
+    bookSummary: "",
     isLoading: true,
+    isLoadingSummary: true,
   }
 
   getReviews = (bookAsin) => {
@@ -46,6 +51,34 @@ class CommentArea extends Component {
       })
   }
 
+  getBookSummaryFromTitle = async (bookTitle) => {
+    // console.log(bookTitle)
+    const prompt =
+      `I give you the title of a book.` +
+      `Your task is to summarize this book.` +
+      `Max 100 characters. Be concise and neutral.` +
+      `Title:` +
+      `"""` +
+      `${bookTitle}` +
+      `"""`
+    try {
+      this.setState({ isLoadingSummary: true })
+
+      const openai = new OpenAI({ simplify: true })
+      const data = await openai.ask(prompt)
+      const aiSummary = data.message
+
+      this.setState({
+        bookSummary: aiSummary,
+      })
+
+      this.setState({ isLoadingSummary: false })
+    } catch (err) {
+      console.error(err)
+      this.setState({ isLoadingSummary: false })
+    }
+  }
+
   componentDidMount() {
     // this.getReviews(this.props.book.asin)
   }
@@ -69,8 +102,8 @@ class CommentArea extends Component {
       console.log("selected book was changed")
       // console.log(prevProps, this.props)
       this.getReviews(this.props.selectedBook.asin)
+      this.getBookSummaryFromTitle(this.props.selectedBook.title)
     }
-
   }
 
   render() {
@@ -86,11 +119,14 @@ class CommentArea extends Component {
         {/* book selected */}
         {this.props.bookIsSelected && (
           <>
+            {/* AI summary */}
+            <AIBookSummary isLoading={this.state.isLoadingSummary} bookSummary={this.state.bookSummary} />
+
             {/* leave your review */}
             <AddComment book={this.props.selectedBook} />
 
             {/* reviews for this book */}
-            <CommentsList book={this.props.selectedBook} reviews={this.state.reviews} isLoading={this.state.isLoading}  />
+            <CommentsList book={this.props.selectedBook} reviews={this.state.reviews} isLoading={this.state.isLoading} />
           </>
         )}
       </>

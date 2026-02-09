@@ -7,7 +7,6 @@ import MyFooter from "./components/MyFooter"
 import Welcome from "./components/Welcome"
 import BookList from "./components/BookList"
 import CommentArea from "./components/CommentArea"
-// import AIBookSummary from "./components/AIBookSummary"
 
 import booksList from "./data/books-scifi.json"
 
@@ -16,13 +15,13 @@ import { Container, Col, Form, Row, Button, Spinner, Alert } from "react-bootstr
 class App extends Component {
   state = {
     selectedBook: null,
-    bookIsSelected: false
+    bookIsSelected: false,
   }
 
   updateSelectedBook = (newBook) => {
     this.setState({
       selectedBook: newBook,
-      bookIsSelected: true
+      bookIsSelected: true,
     })
   }
 
@@ -58,13 +57,16 @@ class App extends Component {
             <Row>
               {/* books list */}
               <Col xs={6}>
-                <BookList books={booksList} marginTop="20px" selectedBook={this.state.selectedBook} updateSelectedBook={this.updateSelectedBook} bookIsSelected={this.state.bookIsSelected} />
+                <BookList
+                  books={booksList}
+                  marginTop="20px"
+                  selectedBook={this.state.selectedBook}
+                  updateSelectedBook={this.updateSelectedBook}
+                  bookIsSelected={this.state.bookIsSelected}
+                />
               </Col>
               {/* comment area */}
               <Col xs={6}>
-                {/* AI summary */}
-                {/* {this.state.selected && <AIBookSummary book={book} />} */}
-
                 {/* comment area: rate, review, reviews list etc. */}
                 <CommentArea bookIsSelected={this.state.bookIsSelected} selectedBook={this.state.selectedBook} />
               </Col>
